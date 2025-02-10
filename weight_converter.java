@@ -33,7 +33,7 @@ public class weight_converter {
             new_weight = weight * 2.20462;
             System.out.printf("Your desired weight is %.2f lbs", new_weight);
 
-        } else if (unit.equalsIgnoreCase("lbs")) {
+        } else {
             new_weight = weight * 0.453592;
             System.out.printf("Your desired weight is %.2f kg", new_weight);
 
