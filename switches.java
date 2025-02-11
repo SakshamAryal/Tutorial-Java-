@@ -1,8 +1,7 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class switches {
-    public static int main(String[] args) {
+    public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -11,7 +10,6 @@ public class switches {
         // Declaring variables
         String roman;
         String ROMAN = "IVXLCDM";
-        // int I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1000;
 
         // getting input and verifying the roman digits
         while (true) {
@@ -24,29 +22,19 @@ public class switches {
             }
         }
 
-        // converting the input to another array of integers
-        // int[] numbers = new int[roman.length()];
-
-        // for (int i = 0; i < roman.length(); i++) {
-        // numbers[i] = number(roman, i);
-        // }
-
-        // checking the subtraction order
-
         for (int i = 0; i < roman.length(); i++) {
             if (i + 1 >= roman.length()) {
                 break;
             } else if (!check(roman, i)) {
                 System.out.println("The subtraction order of the numbers is incorrect.");
-                return 1;
+                System.exit(1);
             }
         }
 
-        // Arrays.stream(numbers).forEach(num -> System.out.print(num + " "));
-
         // closing scanner
         scanner.close();
-        return 0;
+        System.exit(0);
+        ;
     }
 
     // verify the input
