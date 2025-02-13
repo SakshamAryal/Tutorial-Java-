@@ -29,8 +29,7 @@ public class switches {
                 System.out.println("The subtraction order of the numbers is incorrect.");
                 System.exit(1);
             }
-        }
-
+        } 
         // closing scanner
         scanner.close();
         System.exit(0);
@@ -109,4 +108,5 @@ public class switches {
                 return false;
         }
     }
+
 }
