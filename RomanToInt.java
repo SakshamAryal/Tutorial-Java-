@@ -9,8 +9,10 @@ public class RomanToInt {
         // roman number to integer
 
         // Declaring variables
-        String roman;
+        String input;
+        int output;
         String ROMAN = "IVXLCDM";
+
         HashMap<Character, Integer> num = new HashMap<Character, Integer>();
         num.put('I', 1);
         num.put('V', 5);
@@ -23,30 +25,38 @@ public class RomanToInt {
         // input valid as roman numbers
         while (true) {
             System.out.print("Enter the roman numbers: ");
-            roman = scanner.nextLine().toUpperCase();
-            if (ValidInput(roman, ROMAN)) {
+            input = scanner.nextLine().toUpperCase();
+
+            if (ValidInput(input, ROMAN)) {
                 break;
             } else {
                 System.out.println("Please only use Roman Numbers");
             }
         }
-        char[] Roman = roman.toCharArray();
-        // Valid order
-        for (int i = 0; i < roman.length(); i++) {
-            if (i + 1 >= roman.length()) {
-                break;
-            }
-            for (int j = i + 1; j < roman.length(); j++) {
-                if (!check(Roman, i, j, num)) {
-                    System.out.println("The subtraction order of the numbers is incorrect.");
-                    System.exit(1);
-                }
 
+        char[] Roman = input.toCharArray();
+        int length = input.length();
+
+        // Valid order
+        for (int i = 0; i < length; i++) {
+            if (!repetition(Roman, i)) {
+                System.out.println("Repetition invalid.");
+                System.exit(2);
             }
-            System.err.println(num.get(Roman[i]));
+            for (int j = i + 1; j < length; j++) {
+                if (num.containsKey(Roman[j])) {
+                    if (!check(Roman, i, j, num)) {
+                        System.out.println("Invalid order.");
+                        System.exit(1);
+                    }
+                }
+            }
         }
-        // addition and display
-        // int romanToint = RomantoInt(roman);
+
+        output = Addition(num, Roman, length);
+
+        System.out.println(output);
+
         // closing scanner
         scanner.close();
         System.exit(0);
@@ -58,99 +68,58 @@ public class RomanToInt {
     public static boolean ValidInput(String a, String b) {
         for (char c : a.toCharArray()) {
             if (!b.contains(String.valueOf(c))) {
-                System.out.println("Please only enter the roman digits");
                 return false;
             }
         }
         return true;
     }
 
-    // verify the order of the roman digits
-    // public static boolean check(String a, int j, HashMap<String, Integer> n) {
-    // char b = a.charAt(j);
-    // char c = a.charAt(j + 1);
-    // switch (b) {
-    // case 'M':
-    // case 'C':
-    // switch (c) {
-    // case 'D':
-    // return true;
-    // case 'M':
-    // return true;
-    // }
-    // case 'X':
-    // switch (c) {
-    // case 'L':
-    // return true;
-    // case 'C':
-    // return true;
-    // }
-    // case 'I':
-    // switch (c) {
-    // case 'I':
-    // return true;
-    // case 'V':
-    // return true;
-    // case 'X':
-    // return true;
-    // default:
-    // return false;
-    // }
-
-    // case 'D':
-    // switch (c) {
-    // case 'D':
-    // return true;
-    // case 'C':
-    // return true;
-    // }
-
-    // case 'L':
-    // switch (c) {
-    // case 'L':
-    // return true;
-    // case 'X':
-    // return true;
-    // }
-    // case 'V':
-    // switch (c) {
-    // case 'I':
-    // return true;
-    // case 'V':
-    // return true;
-    // default:
-    // return false;
-    // }
-    // default:
-    // return false;
-    // }
-    // }
-
-    // addition of roman numbers
-    // public static int RomantoInt(String a){
-    // int i = 0, sum = 0;
-    // while (i < a.length()){
-    // if()
-    // }
-    // return 0;
-    // }
-
     public static boolean check(char[] a, int k, int l, HashMap<Character, Integer> n) {
         int initial = n.get(a[k]);
-        if (n.containsKey(a[l])) {
-            int compare = n.get(a[l]);
-            if (initial == 5 || initial == 50 || initial == 500) {
-                if (initial < compare) {
-                    return false;
-                }
-            } else if (initial == 1 || initial == 10 || initial == 100 || initial == 1000) {
-                if (compare > 10 * initial) {
-                    return false;
-                }
-            }
+        int compare = n.get(a[l]);
+        // for 5,50,500
+        if ((initial == 5 || initial == 50 || initial == 500) && initial <= compare) {
+            return false;
         }
-        return true;
+        // for 1, 10, 100, 1000
+        if ((compare > 10 * initial) && (initial == 1 || initial == 10 || initial == 100 || initial == 1000)) {
+            return false;
+        }
 
+        // for repetition after subtraction
+        if (k >= 1 && (initial > n.get(a[k - 1]) && (compare >= initial || compare == n.get(a[k - 1])))) {
+            if (compare > n.get(a[l - 1])) {
+                return true;
+            }
+            return false;
+        }
+
+        if (k >= 1 && initial == n.get(a[k - 1]) && compare > initial) {
+            return false;
+        }
+
+        return true;
     }
 
+    // Too many repetitions
+    public static boolean repetition(char[] a, int k) {
+        if (k > 2 && (a[k] == a[k - 1] && a[k] == a[k - 2] && a[k] == a[k - 3])) {
+            return false;
+        }
+        return true;
+    }
+
+    // addition of all input
+    public static int Addition(HashMap<Character, Integer> x, char[] y, int z) {
+        int i = 0, sum = 0;
+        while (i < z) {
+            if (i < z - 1 && x.get(y[i]) < x.get(y[i + 1])) {
+                sum -= x.get(y[i]);
+            } else {
+                sum += x.get(y[i]);
+            }
+            i++;
+        }
+        return sum;
+    }
 }
