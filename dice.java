@@ -24,6 +24,7 @@ public class dice {
             printdice(roll);
             System.out.println("You rolled " + roll);
         }
+        scanner.close();
     }
 
     static void printdice(int roll) {
