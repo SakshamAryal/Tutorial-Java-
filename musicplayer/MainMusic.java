@@ -39,7 +39,6 @@ public class MainMusic {
                         break;
                     case (3):
                         clip.setFramePosition(0);
-                        // clip.start();
                         break;
                     case (4):
                     default:
