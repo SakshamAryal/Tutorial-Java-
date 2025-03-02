@@ -11,6 +11,9 @@ public class string_methods {
         boolean empty = name.isEmpty();
         boolean spaces = name.contains(" ");
 
+        if (empty & spaces) {
+            System.out.println(" ");
+        }
         name = name.toUpperCase();
         name = name.toLowerCase();
         name = name.trim();
