@@ -19,7 +19,6 @@ public class hangman {
         // file creation
         String Pathname = "Hangman\\Word.txt";
         File Word = new File(Pathname);
-        int replace = 0;
 
         try (FileWriter writer = new FileWriter(Word)) {
             writer.write("""
@@ -112,9 +111,9 @@ public class hangman {
 
                 System.out.println(guess + " is present ");
                 for (int j = 0; j < size; j++) {
-                    if (wordToguess.substring(j, j + 1) == guess.toLowerCase()
-                            || wordToguess.substring(j, j + 1) == guess.toUpperCase()) {
-                        display.set(j, wordToguess.substring(j, j + 1));
+                    String compare = wordToguess.substring(j, j + 1);
+                    if (compare.equalsIgnoreCase(guess)) {
+                        display.set(j, compare);
                     }
                 }
             } else {
@@ -140,7 +139,6 @@ public class hangman {
                         break;
                 }
             }
-            replace = 0;
             i++;
         }
 
