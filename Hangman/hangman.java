@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -55,22 +54,24 @@ public class hangman {
                 """;
         Error[3] = """
                   O
-                 /|\
+                 /|\\
                 """;
         Error[4] = """
                   O
-                 /|\
+                 /|\\
                  /
                 """;
         Error[5] = """
                   O
-                 /|\
-                 / \
+                 /|\\
+                 / \\
                 """;
 
         System.out.println("""
+
                 Welcome to HANGMAN GAME
-                let's play the game""");
+                let's play the game
+                """);
 
         // read the file and gather words
         try (BufferedReader read = new BufferedReader(new FileReader(Pathname))) {
@@ -91,34 +92,65 @@ public class hangman {
             display.add("_");
             i++;
         }
-
+        // iterate over input
         while (numOfGuess < 6) {
-            System.err.println(display.toString());
+            for (String iterate : display) {
+                System.out.print(iterate);
+            }
+            System.out.println("""
+
+                    """);
             if (wordToguess.contentEquals(display.toString())) {
                 System.out.println("You won");
                 break;
             }
-            System.out.println("Enter your guess.");
+            System.out.print("Enter your guess: ");
             guess = scanner.nextLine();
-            // check
-            if (wordToguess.contains(guess)) {
+            guess = guess.substring(0, 1);
+            // check and display hangman
+            if (wordToguess.contains(guess.toUpperCase()) || wordToguess.contains(guess.toLowerCase())) {
+
+                System.out.println(guess + " is present ");
                 for (int j = 0; j < size; j++) {
-                    replace = wordToguess.indexOf(guess, replace);
-                    display.set(replace, guess);
+                    if (wordToguess.substring(j, j + 1) == guess.toLowerCase()
+                            || wordToguess.substring(j, j + 1) == guess.toUpperCase()) {
+                        display.set(j, wordToguess.substring(j, j + 1));
+                    }
                 }
             } else {
                 numOfGuess += 1;
-                System.err.println("You have " + (6 - numOfGuess) + "tries remaining");
+                switch (numOfGuess) {
+                    case (1):
+                        System.out.println(Error[0]);
+                        break;
+                    case (2):
+                        System.out.println(Error[1]);
+                        break;
+                    case (3):
+                        System.out.println(Error[2]);
+                        break;
+                    case (4):
+                        System.out.println(Error[3]);
+                        break;
+                    case (5):
+                        System.out.println(Error[4]);
+                        break;
+                    case (6):
+                        System.out.println(Error[5]);
+                        break;
+                }
             }
             replace = 0;
             i++;
         }
 
-        if (wordToguess.contentEquals(display.toString())) {
+        if (wordToguess.equalsIgnoreCase(display.toString())) {
             System.out.println("You won");
         } else {
             System.out.println("The word to guess was " + wordToguess);
         }
+
+        scanner.close();
 
     }
 }
