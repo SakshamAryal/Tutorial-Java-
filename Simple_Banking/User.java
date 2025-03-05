@@ -16,6 +16,7 @@ public class User {
     public User(String name, Scanner scanner) {
         this.name = name;
         filepath1 = "Simple_Banking\\People\\" + name + ".txt";
+        filepath2 = "Simple_Banking\\Transacion_History\\" + name + "_history.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filepath1))) {
         } catch (FileNotFoundException e) {
@@ -26,6 +27,7 @@ public class User {
             check = scanner.nextLine();
             if (check.equalsIgnoreCase("y")) {
                 try (FileWriter writer = new FileWriter(filepath1)) {
+                    writer.write("Balance: " + 0);
                     System.out.print("""
                             You must deposit some money in order to create your account.
                             Please enter how much money you would like to deposit: """);
