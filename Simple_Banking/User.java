@@ -28,12 +28,11 @@ public class User {
             if (check.equalsIgnoreCase("y")) {
                 try (FileWriter writer = new FileWriter(filepath1)) {
                     writer.write("Balance: " + 0);
-                    System.out.print("""
-                            You must deposit some money in order to create your account.
-                            Please enter how much money you would like to deposit: """);
+                    System.out.println("You must deposit some money in order to create your account.");
+                    System.out.print("Please enter how much money you would like to deposit: ");
                     deposit = scanner.nextDouble();
                     scanner.nextLine();
-                    new Transaction(name, "deposit", deposit);
+                    new Transaction(name, "new", deposit);
                 } catch (FileAlreadyExistsException r) {
                     System.out.println("The name you entered already exists in the system.");
                 } catch (IOException r) {
@@ -41,8 +40,10 @@ public class User {
                 }
             } else if (check.equalsIgnoreCase("n")) {
                 System.out.println("Thank you! Have a good day.");
+                System.exit(2);
             } else {
                 System.out.println("Enter y or n.");
+                System.exit(1);
             }
         } catch (IOException e) {
             System.out.println("Something went wrong.");

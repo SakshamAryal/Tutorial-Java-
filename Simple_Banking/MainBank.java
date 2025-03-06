@@ -9,7 +9,6 @@ public class MainBank {
         String name;
         double money = 0;
         int input = 0;
-        String activity = null;
 
         // user object
         System.out.print("Enter the name of the user: ");
@@ -31,21 +30,29 @@ public class MainBank {
             input = scanner.nextInt();
 
             switch (input) {
+                case (1):
+                    new Transaction(name, "balance", 0);
+                    break;
                 case (2):
-                    System.out.println("How much do you want to deposit?");
+                    System.out.print("How much do you want to deposit? ");
                     money = scanner.nextDouble();
                     scanner.nextLine();
                     new Transaction(name, "deposit", money);
                     break;
-
+                case (3):
+                    System.out.print("How much do you want to withdraw?");
+                    money = scanner.nextDouble();
+                    scanner.nextLine();
+                    new Transaction(name, "withdraw", money);
+                    break;
+                case (4):
+                    new Transaction(name);
+                case (5):
                 default:
                     break;
             }
         }
-        // if name is not present, give the option to create a new account - done in
-        // user
-        // present options such as deposit, withdraw, check balance and view
-        // transactions
+        System.out.println("Thank you! Have a nice day.");
 
     }
 }

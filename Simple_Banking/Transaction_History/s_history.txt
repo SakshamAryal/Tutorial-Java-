@@ -1,0 +1,5 @@
+(Wed Mar 05 20:55:27 EST 2025) $10.0 was deposited into the account.
+(Wed Mar 05 21:01:35 EST 2025) $12.0 was deposited into the account.
+(Wed Mar 05 21:15:01 EST 2025) $10.0 was withdrawn from the account.
+(Wed Mar 05 21:16:02 EST 2025) $8.0 was withdrawn from the account.
+(Wed Mar 05 21:16:19 EST 2025) $2008.0 was deposited into the account.
