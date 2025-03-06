@@ -40,7 +40,7 @@ public class MainBank {
                     new Transaction(name, "deposit", money);
                     break;
                 case (3):
-                    System.out.print("How much do you want to withdraw?");
+                    System.out.print("How much do you want to withdraw? ");
                     money = scanner.nextDouble();
                     scanner.nextLine();
                     new Transaction(name, "withdraw", money);

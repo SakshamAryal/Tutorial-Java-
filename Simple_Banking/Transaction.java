@@ -18,22 +18,24 @@ public class Transaction {
     Transaction(String name, String activity, double amount) {
         filepath2 = "Simple_Banking\\Transaction_History\\" + name + "_history.txt";
         filepath1 = "Simple_Banking\\People\\" + name + ".txt";
-        // get balance
-        try (BufferedReader reader = new BufferedReader(new FileReader(filepath1))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.substring(line.indexOf("$") + 1);
-                balance = Double.parseDouble(line);
-            }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-        } catch (IOException e) {
-            System.out.println("Something went wrong.");
-        }
         this.amount = amount;
         this.activity = activity;
         Calendar calendar = Calendar.getInstance();
+        // get balance
+        if (!this.activity.equalsIgnoreCase("new")) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filepath1))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    line = line.substring(line.indexOf("$") + 1);
+                    balance = Double.parseDouble(line);
+                }
+
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found.");
+            } catch (IOException e) {
+                System.out.println("Something went wrong.");
+            }
+        }
 
         if (activity.equalsIgnoreCase("balance")) {
             System.out.println("You have $" + balance + " in your account.");
@@ -42,6 +44,7 @@ public class Transaction {
         if (this.activity.equalsIgnoreCase("new")) {
             File user = new File(filepath2);
             try (FileWriter writer2 = new FileWriter(user)) {
+                balance = 0;
                 balance += this.amount;
                 writer2.write("(" + calendar.getTime() + ") $" + balance + " was deposited into the account.\n");
             } catch (IOException r) {

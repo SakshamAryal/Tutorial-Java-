@@ -27,7 +27,7 @@ public class User {
             check = scanner.nextLine();
             if (check.equalsIgnoreCase("y")) {
                 try (FileWriter writer = new FileWriter(filepath1)) {
-                    writer.write("Balance: " + 0);
+                    writer.write("Balance: ");
                     System.out.println("You must deposit some money in order to create your account.");
                     System.out.print("Please enter how much money you would like to deposit: ");
                     deposit = scanner.nextDouble();
