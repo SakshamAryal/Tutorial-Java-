@@ -78,7 +78,7 @@ public class Transaction {
 
         // updated balance
         try (FileWriter writer1 = new FileWriter(filepath1)) {
-            writer1.write("Balance: $" + balance);
+            writer1.write("Balance:$" + balance);
         } catch (IOException e) {
             System.out.println("Something went wrong.");
         }

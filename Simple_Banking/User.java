@@ -29,7 +29,7 @@ public class User {
                 try (FileWriter writer = new FileWriter(filepath1)) {
                     writer.write("Balance: ");
                     System.out.println("You must deposit some money in order to create your account.");
-                    System.out.print("Please enter how much money you would like to deposit: ");
+                    System.out.print("Please enter the amount you want to deposit: ");
                     deposit = scanner.nextDouble();
                     scanner.nextLine();
                     new Transaction(name, "new", deposit);
